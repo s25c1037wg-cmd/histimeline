@@ -35,6 +35,16 @@ class HistimelineTest(unittest.TestCase):
         self.assertIn("入力エラー", result.stderr)
         self.assertEqual(result.stdout, "- 1945-08-15：終戦\n")
 
+    def test_blank_lines_are_ignored(self):
+        result = self.run_command(
+            "\n"
+            "1945-08-15\t終戦\n"
+            "\n"
+        )
+
+        self.assertEqual(result.stdout, "- 1945-08-15：終戦\n")
+        self.assertEqual(result.stderr, "")
+
 
 if __name__ == "__main__":
     unittest.main()
