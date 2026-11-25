@@ -5,7 +5,7 @@ import sys
 from datetime import date
 
 
-def read_events(lines, target_year=None):
+def read_events(lines, target_year=None, reverse=False, keyword=None):
     events = []
 
     for line_number, line in enumerate(lines, start=1):
@@ -25,26 +25,48 @@ def read_events(lines, target_year=None):
             )
             continue
 
+        event = event.strip()
+
         if target_year is not None and parsed_date.year != target_year:
             continue
 
-        events.append((parsed_date, event.strip()))
+        if keyword is not None and keyword not in event:
+            continue
 
-    return sorted(events)
+        events.append((parsed_date, event))
+
+    return sorted(events, reverse=reverse)
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="歴史上の出来事を日付順に並べます"
+        description="歴史上の出来事を検索・並べ替えします"
     )
+
     parser.add_argument(
         "--year",
         type=int,
         help="指定した年の出来事だけ表示します",
     )
-    args = parser.parse_args()
 
-    events = read_events(sys.stdin, args.year)
+    parser.add_argument(
+        "--reverse",
+        action="store_true",
+        help="新しい出来事から表示します",
+    )
+
+    parser.add_argument(
+        "--keyword",
+        help="出来事に含まれるキーワードで検索します",
+    )
+
+    args = parser.parse_args()
+    events = read_events(
+        sys.stdin,
+        target_year=args.year,
+        reverse=args.reverse,
+        keyword=args.keyword,
+    )
 
     for event_date, event in events:
         print(f"- {event_date.isoformat()}：{event}")
