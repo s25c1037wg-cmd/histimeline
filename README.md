@@ -30,3 +30,9 @@ YYYY-MM-DD<TAB>出来事
 
 ```bash
 cat examples/events.txt | python3 histimeline.py --year 1945
+## キーワードで検索する
+
+`--keyword` を使うと、出来事に指定した文字列が含まれるものだけ表示できます。
+
+```bash
+printf "1600-10-21\t関ヶ原の戦い\n1945-08-15\t終戦\n1868-01-03\t王政復古の大号令\n" | python3 histimeline.py --keyword 戦い
