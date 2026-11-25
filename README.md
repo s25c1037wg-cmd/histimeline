@@ -24,3 +24,9 @@
 ```text
 YYYY-MM-DD<TAB>出来事
 
+## 年で絞り込む
+
+`--year` を使うと、指定した年の出来事だけ表示できます。
+
+```bash
+cat examples/events.txt | python3 histimeline.py --year 1945
