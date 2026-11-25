@@ -56,6 +56,17 @@ class HistimelineTest(unittest.TestCase):
         self.assertEqual(result.stdout, "- 1945-08-15：終戦\n")
         self.assertEqual(result.stderr, "")
 
+    def test_keyword_filter(self):
+        result = self.run_command(
+            "1600-10-21\t関ヶ原の戦い\n"
+            "1945-08-15\t終戦\n"
+            "1868-01-03\t王政復古の大号令\n",
+            "--keyword",
+            "戦い",
+        )
+
+        self.assertEqual(result.stdout, "- 1600-10-21：関ヶ原の戦い\n")
+        self.assertEqual(result.stderr, "")
 
 if __name__ == "__main__":
     unittest.main()
