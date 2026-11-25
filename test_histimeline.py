@@ -1,0 +1,40 @@
+import subprocess
+import sys
+import unittest
+
+
+class HistimelineTest(unittest.TestCase):
+    def run_command(self, text):
+        return subprocess.run(
+            [sys.executable, "histimeline.py"],
+            input=text,
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+    def test_events_are_sorted_by_date(self):
+        result = self.run_command(
+            "1945-08-15\t終戦\n"
+            "1868-01-03\t王政復古の大号令\n"
+        )
+
+        self.assertEqual(
+            result.stdout,
+            "- 1868-01-03：王政復古の大号令\n"
+            "- 1945-08-15：終戦\n",
+        )
+        self.assertEqual(result.stderr, "")
+
+    def test_invalid_line_is_reported(self):
+        result = self.run_command(
+            "間違った入力\n"
+            "1945-08-15\t終戦\n"
+        )
+
+        self.assertIn("入力エラー", result.stderr)
+        self.assertEqual(result.stdout, "- 1945-08-15：終戦\n")
+
+
+if __name__ == "__main__":
+    unittest.main()
