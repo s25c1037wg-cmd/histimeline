@@ -23,4 +23,9 @@
 1行につき、日付と出来事をタブで区切ります。
 
 ```text
+
 YYYY-MM-DD<TAB>出来事
+$ cat examples/events.txt | python3 histimeline.py
+$ cat examples/events.txt | python3 histimeline.py --reverse
+$ cat examples/events.txt | python3 histimeline.py --year 1945
+$ cat examples/events.txt | python3 histimeline.py --keyword 戦い
