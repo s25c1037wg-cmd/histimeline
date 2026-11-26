@@ -29,3 +29,31 @@ $ cat examples/events.txt | python3 histimeline.py
 $ cat examples/events.txt | python3 histimeline.py --reverse
 $ cat examples/events.txt | python3 histimeline.py --year 1945
 $ cat examples/events.txt | python3 histimeline.py --keyword 戦い
+```
+
+## 出力例
+
+```text
+- 1600-10-21：関ヶ原の戦い
+- 1945-08-15：終戦
+```
+
+## エラー
+
+入力形式が間違っている場合、エラーを標準エラー出力へ表示します。
+
+## テスト
+
+```bash
+$ python3 -m unittest -v
+```
+
+## 作者
+
+Yusuke Kimura
+
+## ライセンス
+
+MIT License
+
+Copyright (c) 2026 Yusuke Kimura
