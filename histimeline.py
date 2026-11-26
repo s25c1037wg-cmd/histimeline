@@ -1,3 +1,5 @@
+# Copyright (c) 2026 Yusuke Kimura
+# SPDX-License-Identifier: MIT
 #!/usr/bin/env python3
 
 import argparse
